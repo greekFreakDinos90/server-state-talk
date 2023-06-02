@@ -8,7 +8,6 @@ const router = createRouter({
     {
       path: '/',
       name: 'search-movies',
-      meta: { query: '' },
       component: SearchMovies
     },
     {
