@@ -1,16 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// import Movies from '../views/MoviesPinia.vue'
-// import SingleMovie from '@/views/SingleMoviePinia.vue'
-import Movies from '../views/MoviesVueQuery.vue'
-import SingleMovie from '@/views/SingleMovieVueQuery.vue'
+import SearchMovies from '../views/SearchMovies.vue'
+import SingleMovie from '@/views/SingleMovie.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'movies',
-      component: Movies
+      name: 'search-movies',
+      meta: { query: '' },
+      component: SearchMovies
     },
     {
       path: '/:id',

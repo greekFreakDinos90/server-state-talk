@@ -1,23 +1,27 @@
 <script setup lang="ts">
-import { useMoviesStore } from '@/stores/movies'
-import { storeToRefs } from 'pinia'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useQueryStore } from '@/stores/query'
+import { useMovies } from '@/composables/useMovies'
+import ActionButton from '@/components/ActionButton.vue'
 import LoadingSpinner from '@/components/LoadingSpinner.vue'
 import MovieCard from '@/components/MovieCard.vue'
-import ActionButton from '@/components/ActionButton.vue'
+import { storeToRefs } from 'pinia'
 
 const router = useRouter()
-const moviesStore = useMoviesStore()
+const currentPage = ref(parseInt('1'))
+const queryStore = useQueryStore()
+const { query, debounced } = storeToRefs(queryStore)
+
 const {
-  query,
   movies,
   isSearchMoviesLoading,
   isSearchMoviesError,
   searchMoviesErrorMessage,
-  currentPage,
   showNextPageButton,
-  showPreviousPageButton
-} = storeToRefs(moviesStore)
+  showPreviousPageButton,
+  isPreviousData
+} = useMovies(debounced, currentPage)
 </script>
 
 <template>
@@ -33,7 +37,11 @@ const {
       <ActionButton v-if="showNextPageButton" label="Next page" :onClick="() => currentPage++" />
       <LoadingSpinner v-if="isSearchMoviesLoading" />
     </section>
-    <section v-if="movies && movies.results.length > 0" class="movie-results">
+    <section
+      v-if="movies && movies.results.length > 0"
+      class="movie-results"
+      :style="{ opacity: isPreviousData ? '0.6' : '1' }"
+    >
       <MovieCard
         class="movie-card"
         v-for="movie in movies.results"
@@ -49,7 +57,7 @@ const {
   </main>
 </template>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
 .search {
   display: flex;
   align-items: center;
