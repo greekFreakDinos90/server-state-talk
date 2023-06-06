@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useQueryStore } from '@/stores/query'
 import { useMovies } from '@/composables/useMovies'
@@ -9,9 +8,7 @@ import MovieCard from '@/components/MovieCard.vue'
 import { storeToRefs } from 'pinia'
 
 const router = useRouter()
-const currentPage = ref(parseInt('1'))
-const queryStore = useQueryStore()
-const { query, debounced } = storeToRefs(queryStore)
+const { query, debounced, currentPage } = storeToRefs(useQueryStore())
 
 const {
   movies,
@@ -26,7 +23,12 @@ const {
 
 <template>
   <main>
-    <h1>Search for movies</h1>
+    <h1>
+      Search for movies
+      <span class="sub-title"
+        >...with <span class="sub-title__vue-query">Tanstack Query</span></span
+      >
+    </h1>
     <section class="search">
       <input v-model="query" type="search" placeholder="Write the title of a movie..." />
       <ActionButton
@@ -58,6 +60,16 @@ const {
 </template>
 
 <style scoped lang="scss">
+.sub-title {
+  font-size: 2.4rem;
+  &__vue-query {
+    font-size: 2.8rem;
+    background: linear-gradient(to right, #ef4444, #f59e0b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
 .search {
   display: flex;
   align-items: center;

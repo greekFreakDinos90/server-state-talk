@@ -1,6 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import SearchMovies from '../views/SearchMovies.vue'
-import SingleMovie from '@/views/SingleMovie.vue'
+import { createRouter, createWebHistory, type RouteComponent } from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,12 +6,12 @@ const router = createRouter({
     {
       path: '/',
       name: 'search-movies',
-      component: SearchMovies
+      component: (): Promise<RouteComponent> => import('@/views/SearchMovies.vue')
     },
     {
       path: '/:id',
       name: 'movie',
-      component: SingleMovie
+      component: (): Promise<RouteComponent> => import('@/views/SingleMovie.vue')
     }
   ]
 })
