@@ -3,11 +3,6 @@ import { searchMovies } from '@/api'
 import { computed, watch, type Ref } from 'vue'
 
 export const useMovies = (query: Ref<string>, page: Ref<number>) => {
-  // - [] Get data, loading & error states
-  // - [] Sane defaults
-  // - [] Add pagination
-  // - [] Fix jumping buttons (keepPreviousData)
-  // - [] isPrevious data
   const queryHasValue = computed(() => query.value.trim() !== '')
   const { data, isFetching, isError, error, isPreviousData } = useQuery({
     queryKey: ['movies', [query, page]],
