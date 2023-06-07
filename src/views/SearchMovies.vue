@@ -24,9 +24,7 @@ const {
   <main>
     <h1>
       Search for movies
-      <span class="sub-title"
-        >...with <span class="sub-title__vue-query">Tanstack Query</span></span
-      >
+      <span class="sub-title">...with <span class="sub-title__vue-query">Vue Query</span></span>
     </h1>
     <section class="search">
       <input v-model="query" type="search" placeholder="Write the title of a movie..." />
