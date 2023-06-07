@@ -4,11 +4,10 @@ import { searchMovies } from '@/api'
 
 export const useMovies = (query: Ref<string>, page: Ref<number>) => {
   const queryHasValue = computed(() => query.value.trim() !== '')
-  const { data, isFetching, isError, error, isPreviousData } = useQuery({
+  const { data, isFetching, isError, error } = useQuery({
     queryKey: ['movies', query, page],
     queryFn: () => searchMovies(query.value, page.value.toString()),
-    enabled: queryHasValue,
-    keepPreviousData: queryHasValue
+    enabled: queryHasValue
   })
 
   const showNextPageButton = computed(() => data.value && data.value.next)
@@ -22,7 +21,6 @@ export const useMovies = (query: Ref<string>, page: Ref<number>) => {
     isSearchMoviesError: isError,
     searchMoviesErrorMessage: error,
     showNextPageButton,
-    showPreviousPageButton,
-    isPreviousData
+    showPreviousPageButton
   }
 }

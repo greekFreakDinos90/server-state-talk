@@ -16,8 +16,7 @@ const {
   isSearchMoviesError,
   searchMoviesErrorMessage,
   showNextPageButton,
-  showPreviousPageButton,
-  isPreviousData
+  showPreviousPageButton
 } = useMovies(debounced, currentPage)
 </script>
 
@@ -39,11 +38,7 @@ const {
       <ActionButton v-if="showNextPageButton" label="Next page" :onClick="() => currentPage++" />
       <LoadingSpinner v-if="isSearchMoviesLoading" />
     </section>
-    <section
-      v-if="movies && movies.results.length > 0"
-      class="movie-results"
-      :style="{ opacity: isPreviousData ? '0.6' : '1' }"
-    >
+    <section v-if="movies && movies.results.length > 0" class="movie-results">
       <MovieCard
         class="movie-card"
         v-for="movie in movies.results"
