@@ -4,7 +4,8 @@ import { getMovieById } from '@/api'
 export const useMovie = (id: string) => {
   const { data, isFetching, isError, error } = useQuery({
     queryKey: ['movie', id],
-    queryFn: () => getMovieById(id)
+    queryFn: () => getMovieById(id),
+    staleTime: Infinity
   })
 
   return {

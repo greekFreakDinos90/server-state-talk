@@ -5,7 +5,7 @@ import { searchMovies } from '@/api'
 export const useMovies = (query: Ref<string>, page: Ref<number>) => {
   const queryHasValue = computed(() => query.value.trim() !== '')
   const { data, isFetching, isError, error, isPreviousData } = useQuery({
-    queryKey: ['movies', [query, page]],
+    queryKey: ['movies', query, page],
     queryFn: () => searchMovies(query.value, page.value.toString()),
     enabled: queryHasValue,
     keepPreviousData: queryHasValue
